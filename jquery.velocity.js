@@ -145,7 +145,9 @@ Velocity's structure:
        (The shim is a port of the jQuery utility functions that Velocity uses.) */
     /* Note: We can't default to Zepto since the shimless version of Velocity does not work with Zepto,
        which is missing several utility functions that Velocity requires. */
-    var $ = window.jQuery || (global.Velocity && global.Velocity.Utilities);
+    
+    var require = require || false;
+    var $ = window.jQuery || require('jquery') || (global.Velocity && global.Velocity.Utilities);
 
     if (!$) {
         throw new Error("Velocity: Either jQuery or Velocity's jQuery shim must first be loaded.")
