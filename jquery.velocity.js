@@ -544,6 +544,9 @@ Velocity's structure:
         } else if (Type.isArray(value) && value.length === 4) {
             /* Note: If the bezier array contains non-numbers, generateBezier() returns false. */
             easing = generateBezier.apply(null, value);
+        } else if (Type.isFunction(value)) {
+            /* Note: New type of easing, classic format function (t, b, c, d). */
+            easing = value;
         } else {
             easing = false;
         }
@@ -2952,7 +2955,11 @@ Velocity's structure:
                                 currentValue = tween.endValue;
                             /* Otherwise, calculate currentValue based on the current delta from startValue. */
                             } else {
-                                currentValue = tween.startValue + ((tween.endValue - tween.startValue) * easing(percentComplete));
+                                if (Type.isFunction(tween.easing)) {
+                                    currentValue = easing((timeCurrent - timeStart), tween.startValue, (tween.endValue - tween.startValue), opts.duration, property);
+                                } else {
+                                    currentValue = tween.startValue + ((tween.endValue - tween.startValue) * easing(percentComplete));
+                                }
                             }
 
                             tween.currentValue = currentValue;
