@@ -28,10 +28,5 @@
   ],
   "dependencies": {
     "jquery": "jquery/jquery"
-  },
-  "repository" :
-  { 
-    "type" : "git",
-    "url" : "http://github.com/julianshapiro/velocity.git"
   }
 }
